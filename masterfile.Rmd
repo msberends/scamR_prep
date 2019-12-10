@@ -1,0 +1,61 @@
+---
+title: "Diamond analysis"
+subtitle: "With a focus on `r params$clarity`!"
+author: "Gerrit, Johannes, Matthijs"
+date: "Date of today: `r Sys.Date()`"
+output: html_document
+params:
+  clarity: "IF"
+  n_rows: 10
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      dpi = 600)
+
+library(tidyverse)
+library(glue)
+
+# get all the fuunctions
+list.files("./R", full.names = TRUE) %>%
+  walk(source)
+```
+
+### Getting `r params$n_rows` random rows based on clarity '`r params$clarity`'
+
+Steps to reproduce:
+
+1. Press Knit
+2. Sit back and relax
+
+```{r}
+getClarityDF(params$clarity, 999) %>% 
+  DT::datatable(
+    options = list(
+      pageLength = params$n_rows,
+      lengthMenu = c(params$n_rows * params$n_rows ^ c(0:2))))
+```
+
+### Getting an awesome plot
+
+Steps to reproduce:
+
+1. Press Knit
+2. Sit back and relax
+
+```{r}
+plotClarity(params$clarity)
+```
+
+
+### Say something about clarity '`r params$clarity`'
+
+Steps to reproduce:
+
+1. Press Knit
+2. Sit back and relax
+
+```{r, results='asis'}
+printClarity(params$clarity)
+```
+
